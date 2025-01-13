@@ -1,0 +1,12 @@
+[Unit]
+Description=gerrit ssh proxy
+
+[Service]
+Type=simple
+ExecStart=socat TCP-LISTEN:29418,fork TCP:public.realtimeroboticsgroup.org:29418
+ExecStop=/bin/kill -SIGTERM $MAINPID
+User=www-data
+Group=www-data
+
+[Install]
+WantedBy = multi-user.target

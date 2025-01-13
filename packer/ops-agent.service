@@ -1,0 +1,11 @@
+[Unit]                                 
+Description=Install cloud ops agent
+After=syslog.target network-online.target remote-fs.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/tmp
+ExecStart=/bin/bash -c "curl -sSO https://dl.google.com/cloudagents/add-google-cloud-ops-agent-repo.sh && bash add-google-cloud-ops-agent-repo.sh --also-install"
+
+[Install]
+WantedBy=multi-user.target

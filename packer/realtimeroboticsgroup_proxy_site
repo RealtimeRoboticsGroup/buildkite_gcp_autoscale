@@ -1,0 +1,20 @@
+server {
+    listen 443 ssl;
+    server_name realtimeroboticsgroup.org;
+
+    ssl_certificate /etc/nginx/selfsigned/servercert.pem;
+    ssl_certificate_key /etc/nginx/selfsigned/serverkey.pem;
+
+    location ~ ^/build-dependencies/(.*)$ {
+        # Don't buffer dependencies.
+        proxy_buffering off;
+        proxy_pass http://127.0.0.1:8082/austin-vpn-build-dependencies/$1;
+    }
+
+    location / {
+        # First attempt to serve request as file, then
+        # as directory, then fall back to displaying a 404.
+        try_files $uri $uri/ =404;
+    }
+    # TODO(austin): Proxy rest through to real site so we don't get surprised.
+}

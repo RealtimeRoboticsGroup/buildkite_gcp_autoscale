@@ -1,0 +1,12 @@
+[Unit]
+Description=gcsproxy
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/gcsproxy -v -b 127.0.0.1:8082
+ExecStop=/bin/kill -SIGTERM $MAINPID
+User=www-data
+Group=www-data
+
+[Install]
+WantedBy = multi-user.target
