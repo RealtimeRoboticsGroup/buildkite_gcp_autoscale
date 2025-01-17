@@ -56,7 +56,7 @@ build {
   # TODO(austin): Shrink this list by making the build more hermetic...
   provisioner "shell" {
     inline = [
-      "sudo apt-get install -y libgl1 locales libunwind8 libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libgtk-3-0 libgbm1 libasound2 xvfb",
+      "sudo apt-get install -y libgl1 locales libunwind8 libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libgtk-3-0 libgbm1 libasound2 xvfb libtinfo5",
       "sudo localedef -i en_US -f UTF-8 en_US.UTF-8",
     ]
   }
