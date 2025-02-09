@@ -1,0 +1,14 @@
+[Unit]
+Description=Service to prime git clone
+Before=buildkite-agent.service
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=bash -c "mkdir -p /var/lib/buildkite-agent/buildkite-git-mirrors && gsutil cp gs://austin-vpn-bazel-cache/git-mirror.tar.zst /var/lib/buildkite-agent/buildkite-git-mirrors/ && cd /var/lib/buildkite-agent/buildkite-git-mirrors/ && tar xf git-mirror.tar.zst && rm git-mirror.tar.zst"
+User=buildkite-agent
+Group=buildkite-agent
+
+[Install]
+WantedBy = multi-user.target
+RequiredBy = buildkite-agent.service

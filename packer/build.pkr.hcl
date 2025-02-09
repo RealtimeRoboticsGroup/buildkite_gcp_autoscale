@@ -193,6 +193,20 @@ build {
     ]
   }
 
+  provisioner "file" {
+    source = "git-checkout.service"
+    destination = "/tmp/git-checkout.service"
+  }
+  provisioner "shell" {
+    inline = [
+      "sudo mv /tmp/git-checkout.service /etc/systemd/system/git-checkout.service",
+      "sudo chown root:root /etc/systemd/system/git-checkout.service",
+      "sudo chmod 444 /etc/systemd/system/git-checkout.service",
+      "sudo systemctl enable git-checkout.service",
+      "echo 'git-mirrors-path=/var/lib/buildkite-agent/buildkite-git-mirrors/' | sudo tee -a /etc/buildkite-agent/buildkite-agent.cfg",
+    ]
+  }
+
   provisioner "shell" {
     inline = [
       "sudo apt-get clean",
